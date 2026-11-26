@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; }
+    label { display: grid; gap: 0.25rem; }
+    .form-actions { display: flex; gap: 0.5rem; align-items: end; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #999; padding: 0.5rem; text-align: left; }
+    #message { min-height: 1.5em; }
+  </style>
+</head>
+<body>
+  <h1>Student Registration Form</h1>
+  <form id="studentForm" novalidate>
+    <label>Student Name <input id="studentName" type="text"></label>
+    <label>Roll Number <input id="rollNumber" type="text"></label>
+    <label>Section <input id="section" type="text"></label>
+    <label>Age <input id="age" type="number" min="1"></label>
+    <label>Address <input id="address" type="text"></label>
+    <label>Phone Number <input id="phoneNumber" type="tel"></label>
+    <div class="form-actions">
+      <button type="submit">Add Student</button>
+      <button id="clearForm" type="button">Clear Form</button>
+    </div>
+  </form>
+  <p id="message" aria-live="polite"></p>
+
+  <h2>Student Records</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Roll No.</th><th>Name</th><th>Section</th><th>Age</th>
+        <th>Address</th><th>Phone Number</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="studentRecords"></tbody>
+  </table>
+  <script>
+    const form = document.getElementById("studentForm");
+    const message = document.getElementById("message");
+    const fieldIds = ["studentName", "rollNumber", "section", "age", "address", "phoneNumber"];
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const values = Object.fromEntries(
+        fieldIds.map((id) => [id, document.getElementById(id).value.trim()])
+      );
+
+      if (Object.values(values).some((value) => !value)) {
+        message.textContent = "Please fill in all fields.";
+        return;
+      }
+      if (!Number.isFinite(Number(values.age)) || Number(values.age) <= 0) {
+        message.textContent = "Age must be a number greater than 0.";
+        return;
+      }
+
+      const row = document.createElement("tr");
+      const cellValues = [
+        values.rollNumber,
+        values.studentName,
+        values.section,
+        values.age,
+        values.address,
+        values.phoneNumber,
+      ];
+
+      for (const value of cellValues) {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+        row.appendChild(cell);
+      }
+
+      const actionCell = document.createElement("td");
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", () => row.remove());
+      actionCell.appendChild(deleteButton);
+      row.appendChild(actionCell);
+      document.getElementById("studentRecords").appendChild(row);
+
+      message.textContent = "Student added successfully!";
+      form.reset();
+    });
+
+    document.getElementById("clearForm").addEventListener("click", () => {
+      form.reset();
+      message.textContent = "";
+    });
+  </script>
+</body>
+</html>

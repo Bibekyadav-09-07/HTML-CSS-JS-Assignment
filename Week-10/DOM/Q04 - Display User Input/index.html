@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display User Input</title>
+</head>
+<body>
+  <label for="studentName">Student name</label>
+  <input id="studentName" type="text">
+  <button id="submitButton" type="button">Submit</button>
+  <p id="result" aria-live="polite"></p>
+  <script>
+    document.getElementById("submitButton").addEventListener("click", () => {
+      const name = document.getElementById("studentName").value.trim();
+      document.getElementById("result").textContent = name
+        ? `Hello, ${name}! Welcome to the class.`
+        : "Please enter a student's name.";
+    });
+  </script>
+</body>
+</html>

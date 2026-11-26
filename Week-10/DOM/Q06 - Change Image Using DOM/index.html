@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Image</title>
+</head>
+<body>
+  <img id="myImage" alt="Cat illustration" width="240" height="160">
+  <button id="changeImage" type="button">Change Image</button>
+  <script>
+    const image = document.getElementById("myImage");
+    const illustration = (label, color) =>
+      `data:image/svg+xml,${encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160" viewBox="0 0 240 160"><rect width="240" height="160" fill="${color}"/><text x="120" y="95" text-anchor="middle" font-family="sans-serif" font-size="40">${label}</text></svg>`
+      )}`;
+
+    image.src = illustration("CAT", "lavender");
+    document.getElementById("changeImage").addEventListener("click", () => {
+      image.src = illustration("DOG", "lightblue");
+      image.alt = "Dog illustration";
+    });
+  </script>
+</body>
+</html>

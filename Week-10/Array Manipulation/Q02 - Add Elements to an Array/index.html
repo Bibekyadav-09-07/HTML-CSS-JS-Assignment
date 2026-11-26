@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Array</title>
+</head>
+<body>
+
+    <h2>Adding Fruits to an Array</h2>
+
+    <script>
+        const fruits = ["Apple", "Banana", "Mango", "Orange", "Grapes"];
+
+        const newFruit = prompt("Enter a new fruit name:");
+
+        if (newFruit !== null && newFruit.trim() !== "") {
+            fruits.push(newFruit.trim());
+        }
+
+        console.log("Updated array:", fruits);
+        alert("Updated array: " + fruits.join(", "));
+    </script>
+
+</body>
+</html>

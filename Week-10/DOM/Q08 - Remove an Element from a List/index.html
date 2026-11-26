@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remove Last Student</title>
+</head>
+<body>
+  <ul id="students">
+    <li>Ram</li>
+    <li>Sita</li>
+    <li>Hari</li>
+    <li>Gita</li>
+    <li>Asha</li>
+  </ul>
+  <button id="removeStudent" type="button">Remove Last Student</button>
+  <p id="message" aria-live="polite"></p>
+  <script>
+    document.getElementById("removeStudent").addEventListener("click", () => {
+      const list = document.getElementById("students");
+      const lastStudent = list.lastElementChild;
+      const message = document.getElementById("message");
+
+      if (lastStudent) {
+        lastStudent.remove();
+        message.textContent = "Last student removed.";
+      } else {
+        message.textContent = "There are no students left to remove.";
+      }
+    });
+  </script>
+</body>
+</html>

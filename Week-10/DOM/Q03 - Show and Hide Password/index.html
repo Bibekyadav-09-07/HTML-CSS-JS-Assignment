@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show and Hide Password</title>
+</head>
+<body>
+  <form>
+    <label for="username">Username</label>
+    <input id="username" type="text" autocomplete="username">
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password">
+    <button id="togglePassword" type="button">Show Password</button>
+  </form>
+  <script>
+    const password = document.getElementById("password");
+    const toggleButton = document.getElementById("togglePassword");
+
+    toggleButton.addEventListener("click", () => {
+      const isHidden = password.type === "password";
+      password.type = isHidden ? "text" : "password";
+      toggleButton.textContent = isHidden ? "Hide Password" : "Show Password";
+    });
+  </script>
+</body>
+</html>
